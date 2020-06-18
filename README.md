@@ -1,7 +1,15 @@
 # cassandra
 A Ruby client for the Cassandra distributed database.
 
-Supports 1.8.7, 1.9.2, and rubinius on Cassandra 0.6.13, 0.7.9, 0.8.6, 1.0.0-rc2, 1.1.5.
+Supports 1.8.7, 1.9.2, 1.9.3, 2.0.0, 2.1 and rubinius on Cassandra 0.7.x through 2.0.x.
+
+## Status of this gem
+
+There is no longer much development effort being put into this gem. If you
+are just getting started with Cassandra then you probably want to use the Datastax
+[ruby-driver](https://github.com/datastax/ruby-driver).
+
+We are still happy to take patches if you want to improve this gem.
 
 ## Getting Started
 
@@ -348,20 +356,20 @@ Example:
     @client.get_indexed_slices(:Statuses, expressions).length       # returns 5
 
 ### batch
-Takes a block where all the mutations (inserts and deletions) inside it are 
+Takes a block where all the mutations (inserts and deletions) inside it are
 queued, and at the end of the block are passed to cassandra in a single batch.
 
-If you don't want to send all the mutations inside the block in a big single 
-batch, you can use the :queue\_size option to send smaller batches. If the 
+If you don't want to send all the mutations inside the block in a big single
+batch, you can use the :queue\_size option to send smaller batches. If the
 queue is not empty at the end of the block, the remaining mutations are sent.
 
 * options
   * :consistency  - Override the consistency level from individual mutations.
   * :queue\_size  - Maximum number of mutations to send at once.
 
-Example: 
+Example:
 
-    @client.batch do 
+    @client.batch do
       @client.insert(:Statuses, 'k1', {'body' => 'v1'})
       @client.insert(:Statuses, 'k2', {'body' => 'v2'})
       @client.remove(:Statuses, 'k3')
@@ -370,4 +378,4 @@ Example:
 
 ## Reporting Problems
 
-The Github issue tracker is [here](http://github.com/twitter/cassandra/issues). If you have problems with this library or Cassandra itself, please use the [cassandra-user mailing list](http://mail-archives.apache.org/mod_mbox/incubator-cassandra-user/).
+The Github issue tracker is [here](http://github.com/cassandra-rb/cassandra/issues). If you have problems with this library or Cassandra itself, please use the [cassandra-user mailing list](http://mail-archives.apache.org/mod_mbox/incubator-cassandra-user/).
